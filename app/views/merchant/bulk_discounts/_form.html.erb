@@ -1,0 +1,22 @@
+<section class="section">
+  <%= form_with(model: models, local: true) do |f| %>
+
+    <% @bulk_discount.errors.full_messages.each do |error| %>
+      <article class="message is-danger">
+        <div class="message-body"><%= error %></div>
+      </article>
+    <% end %>
+
+    <p><%= f.label :name, class: 'label is-large' %><br />
+      <%= f.text_field :name, class: 'input is-large' %></p>
+
+    <p><%= f.label :quantity_threshold, class: 'label is-large' %><br />
+      <%= f.text_field :quantity_threshold, class: 'input is-large' %></p>
+
+    <p><%= f.label :percentage, class: 'label is-large' %><br />
+      <%= f.text_field :percentage, class: 'input is-large' %></p>
+
+
+    <p><%= f.submit class: 'input button is-large is-primary' %></p>
+  <% end %>
+</section>

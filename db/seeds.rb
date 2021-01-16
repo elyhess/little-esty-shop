@@ -21,7 +21,7 @@ User.destroy_all
 @merchy = FactoryBot.create(:merchant, user_name: @user1.user_name, user: @user1)
 
 5.times do
-	FactoryBot.create(:discount, merchant: @merchy)
+	FactoryBot.create(:bulk_discount, merchant: @merchy)
 end
 
 20.times do
