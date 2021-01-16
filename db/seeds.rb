@@ -30,8 +30,7 @@ end
   10.times do
     FactoryBot.create(:item, merchant: @merchant)
   end
-  @user2 = FactoryBot.create(:user)
-  @customer = FactoryBot.create(:customer, first_name: @user2.first_name, last_name: @user2.last_name, user: @user2)
+  @customer = FactoryBot.create(:customer, first_name: @user.first_name, last_name: @user.last_name, user: @user)
   5.times do
     Invoice.create(status: Faker::Number.between(from: 0, to: 2), merchant: @merchant, customer: @customer)
   end

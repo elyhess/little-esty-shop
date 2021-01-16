@@ -3,7 +3,7 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   before_action :set_bulk_discount, only: [:show, :destroy, :edit, :update]
 
   def index
-    @bulk_discounts = BulkDiscount.all
+    @bulk_discounts = @merchant.bulk_discounts
   end
 
   def show
