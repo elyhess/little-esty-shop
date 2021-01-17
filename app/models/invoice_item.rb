@@ -4,7 +4,6 @@ class InvoiceItem < ApplicationRecord
   belongs_to :invoice
   enum status: [ :pending, :packaged, :shipped ]
 
-=begin
   before_save :apply_discount
 
   def best_discount
@@ -30,5 +29,5 @@ class InvoiceItem < ApplicationRecord
       end
     end
   end
-=end
+
 end
