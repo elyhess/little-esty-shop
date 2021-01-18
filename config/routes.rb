@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
     resources :merchants, module: :merchant do
       resources :items
+      resources :bulk_discounts
       resources :items_status, controller: "merchant_items_status", only: [:update]
       resources :invoices
       resources :invoice_items, only: [:update]

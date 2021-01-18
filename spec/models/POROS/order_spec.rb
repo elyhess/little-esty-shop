@@ -6,8 +6,8 @@ RSpec.describe Order do
     @customer = create(:customer, user: @user)
     @user2 = create(:user, role: 1)
     @merchant = create(:merchant, user: @user2)
-    @item = create(:item, merchant: @merchant)
-    @item2 = create(:item, merchant: @merchant)
+    @item = create(:item, merchant: @merchant, unit_price: 2)
+    @item2 = create(:item, merchant: @merchant, unit_price: 5)
     @user2 = create(:user, role: 0)
   end
 
@@ -23,5 +23,39 @@ RSpec.describe Order do
     expect(order.invoices.count).to eq(1)
     expect(order.invoice_items.count).to eq(2)
     expect(order.invoices.first.customer_id).to eq(@customer.id)
+  end
+
+  it 'gives total dollars saved' do
+    order = Order.new(subject.contents, @customer)
+    @invoice1 = create(:invoice, customer: @customer, merchant: @merchant)
+    @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 1, percentage: 20)
+    @invoice_item1 = create(:invoice_item, invoice: @invoice1, item: @item, unit_price: 2, quantity: 2)
+    @invoice_item2 = create(:invoice_item, invoice: @invoice1, item: @item2, unit_price: 5, quantity: 3)
+    expect(order.total_saved).to eq(3.8)
+  end
+
+  it 'gives total dollar amount ' do
+    order = Order.new(subject.contents, @customer)
+    @invoice1 = create(:invoice, customer: @customer, merchant: @merchant)
+    @invoice_item1 = create(:invoice_item, invoice: @invoice1, item: @item, unit_price: 2, quantity: 2)
+    @invoice_item2 = create(:invoice_item, invoice: @invoice1, item: @item2, unit_price: 5, quantity: 3)
+    expect(order.total).to eq(19)
+  end
+
+  it 'gives total dollar amount with discount ' do
+    order = Order.new(subject.contents, @customer)
+    @invoice1 = create(:invoice, customer: @customer, merchant: @merchant)
+    @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 1, percentage: 20)
+    @invoice_item1 = create(:invoice_item, invoice: @invoice1, item: @item, unit_price: 2, quantity: 2)
+    @invoice_item2 = create(:invoice_item, invoice: @invoice1, item: @item2, unit_price: 5, quantity: 3)
+    expect(order.total).to eq(14)
+  end
+
+  it 'gives invoice item total' do
+    order = Order.new(subject.contents, @customer)
+    @invoice1 = create(:invoice, customer: @customer, merchant: @merchant)
+    @invoice_item1 = create(:invoice_item, invoice: @invoice1, item: @item, unit_price: 2, quantity: 2)
+    @invoice_item2 = create(:invoice_item, invoice: @invoice1, item: @item2, unit_price: 5, quantity: 3)
+    expect(order.invoice_item_total(@invoice_item1)).to eq(4)
   end
 end

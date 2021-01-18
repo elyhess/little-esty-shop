@@ -11,6 +11,7 @@ RSpec.describe 'merchants invoices index page', type: :feature do
 
       @user = create(:user, role: 0)
       @merchant = create(:merchant, user: @user)
+      @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 2, percentage: 20)
 
       @user1 = create(:user, role: 0)
       @customer_1 = create(:customer, user: @user1)
@@ -102,6 +103,11 @@ RSpec.describe 'merchants invoices index page', type: :feature do
       expect(page).to have_content("Total Revenue: $#{@invoice_9.total_revenue.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}")
     end
 
+    it 'can show total revenue for that invoice with discounts' do
+      visit merchant_invoice_path(@merchant.id, @invoice_9.id)
+      expect(page).to have_content("Total Revenue: $#{@invoice_9.total_revenue.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}")
+    end
+
     it 'can enable/disable status of item' do
       visit merchant_invoice_path(@merchant.id, @invoice_9.id)
       within("#status-#{@invoice_9.invoice_items.first.id}") do
@@ -111,6 +117,14 @@ RSpec.describe 'merchants invoices index page', type: :feature do
         expect(@invoice_9.invoice_items.first.status).to eq("pending")
       end
     end
+
+      it 'I see a link to the discounts applied to each invoice item' do
+        visit merchant_invoice_path(@merchant.id, @invoice_9.id)
+
+        first(:link, "Big discount").click
+
+        expect(current_path).to eq(merchant_bulk_discount_path(@merchant, @discount_a))
+      end
 
   end
 end

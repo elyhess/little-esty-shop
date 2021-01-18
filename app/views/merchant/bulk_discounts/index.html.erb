@@ -1,0 +1,22 @@
+
+<section class="section">
+  <section class="section is-size-5 box">
+    <h3 class="has-text-centered">Your Store Discounts</h3>
+    <h5><%= link_to "Add Discount", new_merchant_bulk_discount_path %></h5>
+    <ul>
+      <% @bulk_discounts.each do |discount| %>
+        <li><%= link_to "#{discount.name}", merchant_bulk_discount_path(@merchant, discount.id), class: 'is-size-5' %></li>
+        <p>Quantity Threshold: <%= discount.quantity_threshold %><br>
+          Discount Amount: <%= number_to_percentage(discount.percentage, strip_insignificant_zeros: true) %></p>
+        <div class="buttons">
+          <p class="control">
+            <%= button_to "Delete", merchant_bulk_discount_path(@merchant, discount), method: :delete, class: 'button is-danger is-outlined', id: "discount-delete-#{discount.id}" %>
+          </p>
+          <p class="control">
+            <%= link_to "Edit", edit_merchant_bulk_discount_path(@merchant, discount), class: "button", id: "discount-edit-#{discount.id}" %>
+          </p>
+        </div>
+      <% end %>
+    </ul>
+  </section>
+</section>

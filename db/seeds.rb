@@ -16,17 +16,33 @@ Merchant.destroy_all
 User.destroy_all
 
 @user = FactoryBot.create(:user, role: 1, email: "admin@example.com", password: "password", password_confirmation: "password")
-20.times do
+
+@user1 = FactoryBot.create(:user, role: 0, user_name: "me", email: "merchant@example.com", password: "password", password_confirmation: "password")
+@merchy = FactoryBot.create(:merchant, user_name: @user1.user_name, user: @user1, status: 1)
+@custy = FactoryBot.create(:customer, first_name: @user1.first_name, last_name: @user1.last_name, user: @user1)
+
+2.times do
+	FactoryBot.create(:bulk_discount, merchant: @merchy)
+end
+
+3.times do
   @user = FactoryBot.create(:user, role: 0)
-  @merchant = FactoryBot.create(:merchant, user_name: @user.user_name, user: @user)
-  10.times do
-    FactoryBot.create(:item, merchant: @merchant)
+  @merchant = FactoryBot.create(:merchant, user_name: @user.user_name, user: @user, status: 1)
+
+  2.times do
+    FactoryBot.create(:bulk_discount, merchant: @merchant)
   end
-  @user2 = FactoryBot.create(:user)
-  @customer = FactoryBot.create(:customer, first_name: @user2.first_name, last_name: @user2.last_name, user: @user2)
+
+  3.times do
+    FactoryBot.create(:item, merchant: @merchant, status: 1)
+  end
+
+  @customer = FactoryBot.create(:customer, first_name: @user.first_name, last_name: @user.last_name, user: @user)
+
   5.times do
     Invoice.create(status: Faker::Number.between(from: 0, to: 2), merchant: @merchant, customer: @customer)
   end
+
 end
 
 

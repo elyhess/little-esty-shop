@@ -81,13 +81,13 @@ RSpec.describe 'Admin Merchants Index' do
       transaction6 = create(:transaction, invoice: invoice6, result: 1)
       transaction7 = create(:transaction, invoice: invoice7, result: 0)
 
-      item1 = create(:item, merchant: @merchant_1)
-      item2 = create(:item, merchant: @merchant_2)
-      item3 = create(:item, merchant: @merchant_3)
-      item4 = create(:item, merchant: @merchant_4)
-      item5 = create(:item, merchant: @merchant_5)
-      item6 = create(:item, merchant: @merchant_6)
-      item7 = create(:item, merchant: @merchant_7)
+      item1 = create(:item, merchant: @merchant_1, unit_price: 300)
+      item2 = create(:item, merchant: @merchant_2, unit_price: 15)
+      item3 = create(:item, merchant: @merchant_3, unit_price: 40)
+      item4 = create(:item, merchant: @merchant_4, unit_price: 50)
+      item5 = create(:item, merchant: @merchant_5, unit_price: 10)
+      item6 = create(:item, merchant: @merchant_6, unit_price: 30)
+      item7 = create(:item, merchant: @merchant_7, unit_price: 5)
 
       invoice_item1 = create(:invoice_item, item: item1, invoice: invoice1, quantity: 1, unit_price: 300) #300 rev
       invoice_item2 = create(:invoice_item, item: item2, invoice: invoice2, quantity: 2, unit_price: 15) #30 rev

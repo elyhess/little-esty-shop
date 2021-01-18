@@ -57,7 +57,6 @@ group :development, :test do
   gem "rails-erd"
   gem "awesome_print", :require => "ap"
   gem "hirb"
-  gem "factory_bot_rails"
   gem "webmock"
 end
 
