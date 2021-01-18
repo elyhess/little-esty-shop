@@ -45,8 +45,7 @@ RSpec.describe "When a user tries to checkout" do
     within(".level-right") do
       click_on 'Check Out'
     end
-    #
-    # expect(page).to have_content("#{@customer1.invoices.first.id}")
-    # expect(page).to have_content("#{@customer1.invoice_items.first.item.name}")
+
+    expect(page).to have_content(@merchant.invoice_items.first.item.name)
   end
 end

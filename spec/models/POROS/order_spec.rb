@@ -15,7 +15,7 @@ RSpec.describe Order do
 
   it 'can create invoices' do
     order = Order.new(subject.contents, @customer)
-    expect(order.count_of(@item.id)).to eq(2)
+    expect(order.invoices.first.invoice_items.size).to eq(2)
   end
 
   it 'can return invoices & invoice_items' do
