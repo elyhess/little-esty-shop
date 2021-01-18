@@ -10,7 +10,6 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   describe 'instance methods' do
-=begin
     describe "#apply_discounts" do
 	    it 'should not apply bulk discount' do
         @user = create(:user, role: 1)
@@ -20,8 +19,8 @@ RSpec.describe InvoiceItem, type: :model do
         @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 10, percentage: 20)
 
 
-        @item_1 = create(:item, merchant: @merchant)
-        @item_2 = create(:item, merchant: @merchant)
+        @item_1 = create(:item, merchant: @merchant, unit_price: 10)
+        @item_2 = create(:item, merchant: @merchant, unit_price: 10)
 
         @invoice_1 = create(:invoice, customer: @customer, merchant: @merchant)
 
@@ -38,8 +37,8 @@ RSpec.describe InvoiceItem, type: :model do
         @customer = create(:customer, user: @user)
         @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 10, percentage: 20)
 
-        @item_a = create(:item, merchant: @merchant)
-        @item_b = create(:item, merchant: @merchant)
+        @item_a = create(:item, merchant: @merchant, unit_price: 10)
+        @item_b = create(:item, merchant: @merchant, unit_price: 20)
 
         @invoice_1 = create(:invoice, customer: @customer, merchant: @merchant)
 
@@ -58,8 +57,8 @@ RSpec.describe InvoiceItem, type: :model do
         @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 10, percentage: 20)
         @discount_b = @merchant.bulk_discounts.create!(name: "Bigger discount", quantity_threshold: 15, percentage: 30)
 
-        @item_a = create(:item, merchant: @merchant)
-        @item_b = create(:item, merchant: @merchant)
+        @item_a = create(:item, merchant: @merchant, unit_price: 10)
+        @item_b = create(:item, merchant: @merchant, unit_price: 20)
 
         @invoice_a = create(:invoice, customer: @customer, merchant: @merchant)
 
@@ -78,8 +77,8 @@ RSpec.describe InvoiceItem, type: :model do
         @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 10, percentage: 20)
         @discount_b = @merchant.bulk_discounts.create!(name: "lesser discount", quantity_threshold: 15, percentage: 15)
 
-        @item_a = create(:item, merchant: @merchant)
-        @item_b = create(:item, merchant: @merchant)
+        @item_a = create(:item, merchant: @merchant, unit_price: 10)
+        @item_b = create(:item, merchant: @merchant, unit_price: 20)
 
         @invoice_a = create(:invoice, customer: @customer, merchant: @merchant)
 
@@ -102,9 +101,9 @@ RSpec.describe InvoiceItem, type: :model do
         @discount_a = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 10, percentage: 20)
         @discount_b = @merchant.bulk_discounts.create!(name: "lesser discount", quantity_threshold: 15, percentage: 30)
 
-        @item_a = create(:item, merchant: @merchant)
-        @item_b = create(:item, merchant: @merchant)
-        @item_c = create(:item, merchant: @merchant2)
+        @item_a = create(:item, merchant: @merchant, unit_price: 10)
+        @item_b = create(:item, merchant: @merchant, unit_price: 10)
+        @item_c = create(:item, merchant: @merchant2, unit_price: 10)
 
         @invoice_a = create(:invoice, customer: @customer, merchant: @merchant)
 
@@ -117,7 +116,6 @@ RSpec.describe InvoiceItem, type: :model do
         expect(@invoice_item_3.unit_price).to eq(10)
       end
     end
-=end
   end
 
   describe 'class methods' do 
