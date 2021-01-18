@@ -7,4 +7,8 @@
   <p class="is-size-4"><%= t('.current_price') %>: <%= number_to_currency(@item.unit_price, precision: 0) %></p>
 </section>
 
+<%# if user_signed_in? && !current_user.merchant_id == @item.merchant_id %>
+
+<%# end %>
+
 <%= link_to t('.edit_item'), edit_merchant_item_path(@item.merchant_id, @item.id), class: 'button block is-large is-fullwidth is-primary' %>
