@@ -7,6 +7,8 @@ RSpec.describe "When a user adds items to their cart" do
     @item = create(:item, merchant: @merchant)
     @item2 = create(:item, merchant: @merchant)
 
+    login_as @user
+
     visit "/"
 
     within("#item-#{@item.id}") do

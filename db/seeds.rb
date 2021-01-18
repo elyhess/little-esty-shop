@@ -39,13 +39,16 @@ end
 
   @customer = FactoryBot.create(:customer, first_name: @user.first_name, last_name: @user.last_name, user: @user)
 
+=begin
   5.times do
     Invoice.create(status: Faker::Number.between(from: 0, to: 2), merchant: @merchant, customer: @customer)
   end
+=end
 
 end
 
 
+=begin
 5.times do
   Invoice.all.each do |invoice|
     item = invoice.merchant.items.sample
@@ -53,3 +56,4 @@ end
     FactoryBot.create(:transaction, invoice: invoice)
   end
 end
+=end

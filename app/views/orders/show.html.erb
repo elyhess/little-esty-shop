@@ -37,7 +37,7 @@
 <section class="section">
   <section class="section is-size-5 box">
     <ul>
-      <h2>You saved: <%= number_to_currency(@order.total_saved, precision: 0) %></h2>
+      <h2>You save: <%= number_to_currency(@order.total_saved, precision: 0) %></h2>
       <h1>Total: <%= number_to_currency(@order.total, precision: 0) %></h1>
     </ul>
   </section>
@@ -46,6 +46,6 @@
 
 <div class="buttons">
   <p class="control">
-    <%= link_to "Back", :back,  class: "button is-medium" %>
+    <%= button_to "Pay", order_path(@order), method: :patch,  class: "button is-medium" %>
   </p>
 </div>
