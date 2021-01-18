@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="level-right is-size-4">
-    <% if user_signed_in? && !current_user.admin? %>
+    <% if current_user.nil? || !current_user.admin? %>
       <%= link_to "#{t('dashboard_cart')} (#{cart.total_count})", cart_path(cart), class: 'button is-success is-medium' %>
     <% end %>
   </div>
@@ -17,7 +17,7 @@
     <% @items.each do |item| %>
       <section class="section" id="item-<%= item.id %>">
         <p class="title has-text-centered"><%= link_to "#{item.name} — #{number_to_currency(item.unit_price, precision: 0)}", merchant_item_path(item.merchant_id, item.id) %></p>
-        <% if user_signed_in? && !current_user.admin? %>
+        <% if current_user.nil? || !current_user.admin?%>
           <p><%= button_to t("add_to_cart"), "/cart/#{item.id}", method: :patch, class: 'button is-large is-primary is-fullwidth' %></p>
         <% end %>
       </section>
