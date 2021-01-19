@@ -7,7 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def show
+    require "pry"; binding.pry
     @order = Order.new(cart.contents, current_user.customer)
-    @invoice_items = @order.invoice_items
   end
+
 end

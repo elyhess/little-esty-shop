@@ -20,7 +20,7 @@
     </thead>
     <tbody class="has-text-centered">
     <tr>
-      <% @invoice_items.each do |invoice_item| %>
+      <% @order.all_invoice_items.each do |invoice_item| %>
         <div id="item-<%= invoice_item.id %>">
           <td><%= invoice_item.item.name %></td>
           <td><%= invoice_item.quantity %></td>

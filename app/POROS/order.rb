@@ -1,9 +1,11 @@
 class Order
+  attr_reader :all_invoice_items
 
   def initialize(data, customer)
     @customer = customer
     @contents = data
     invoices
+    @all_invoice_items = []
     invoice_items
   end
 
@@ -21,23 +23,21 @@ class Order
 
   def invoices
     item_list.map do |item|
-      Invoice.find_by(customer: @customer, merchant: item.merchant) ||
-      Invoice.create(customer: @customer, merchant: item.merchant, status: 1)
+      Invoice.find_by(customer: @customer, merchant: item.merchant, status: 1) ||
+        Invoice.create(customer: @customer, merchant: item.merchant, status: 1)
     end.uniq
   end
 
   def invoice_items
     order_items.map do |item, quantity|
       invoice = Invoice.find_by(customer: @customer, merchant: item.merchant)
-      InvoiceItem.create(quantity: quantity,
-                         status: 0,
-                         item: item,
-                         invoice: invoice)
+      invitem = InvoiceItem.create(quantity: quantity, status: 0, item: item, invoice: invoice)
+      @all_invoice_items << invitem
     end
   end
 
   def total_saved
-    invoice_items.sum do |invoice_item|
+    @all_invoice_items.sum do |invoice_item|
       discount_rate = invoice_item.discount_percentage.to_f
       original_price = invoice_item.item.unit_price
       ((original_price * discount_rate) * invoice_item.quantity) / 100
@@ -45,7 +45,7 @@ class Order
   end
 
   def total
-    invoice_items.sum do |invoice_item|
+    @all_invoice_items.sum do |invoice_item|
       invoice_item_total(invoice_item)
     end
   end
