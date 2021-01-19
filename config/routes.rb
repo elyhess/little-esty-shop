@@ -6,14 +6,14 @@ Rails.application.routes.draw do
     resources :customers, only: [:show]
     resources :welcome, only: [:index]
     resources :cart, only: [:show, :update, :destroy]
-    resources :orders, only: [:create, :show, :update]
+    resources :checkout, only: [:create, :show, :update]
 
     # devise_for :users, controllers: {:sessions => "users/sessions", :passwords => "users/passwords", :registrations => "users/registrations"}
-    # resources :users, only: [:show]
-    # resources :customers, only: [:show]
-    # resources :welcome, only: [:index]
-    # resources :cart, only: [:show, :update, :destroy]
-    # resources :orders, only: [:create, :show]
+    # checkout :users, only: [:show]
+    # checkout :customers, only: [:show]
+    # checkout :welcome, only: [:index]
+    # checkout :cart, only: [:show, :update, :destroy]
+    # checkout :checkout, only: [:create, :show]
 
     namespace :admin do
       resources :merchants, except: [:destroy]

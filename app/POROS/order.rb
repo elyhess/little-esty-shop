@@ -6,7 +6,6 @@ class Order
     @contents = data
     invoices
     @all_invoice_items = []
-    invoice_items
   end
 
   def item_list
@@ -28,7 +27,7 @@ class Order
     end.uniq
   end
 
-  def invoice_items
+  def add_invoice_items
     order_items.map do |item, quantity|
       invoice = Invoice.find_by(customer: @customer, merchant: item.merchant)
       invitem = InvoiceItem.create(quantity: quantity, status: 0, item: item, invoice: invoice)
@@ -53,5 +52,6 @@ class Order
   def invoice_item_total(invoice_item)
     invoice_item.unit_price * invoice_item.quantity
   end
+
 
 end

@@ -2,12 +2,10 @@ class PaymentsController < ApplicationController
 	before_action :authenticate_user!
 
 	def new
-		# 4
 		@order = Order.new(cart.contents, current_user.customer)
 	end
 
 	def create
-		# 3
 		@order = Order.new(cart.contents, current_user.customer)
 		@result = Braintree::Transaction.sale(amount: @order.total,
 		                                      payment_method_nonce: params[:payment_method_nonce])

@@ -7,7 +7,7 @@
 
   <div class="level-right">
     <% if user_signed_in? && !current_user.admin? %>
-      <%= link_to t('.checkout'), orders_path, method: :post, class: 'button is-medium is-success' %>
+      <%= link_to t('.checkout'), checkout_index_path, method: :post, class: 'button is-medium is-success' %>
     <% else %>
       <%= link_to t('.checkout'), new_user_session_path, class: 'button is-medium is-success' %>
     <% end %>

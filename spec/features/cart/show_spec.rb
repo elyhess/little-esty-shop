@@ -5,11 +5,15 @@ RSpec.describe "When a user tries to checkout" do
     @user = create(:user, role: 0)
     @customer = create(:customer, user: @user)
     @merchant = create(:merchant, user: @user, status: 1)
-    @item = create(:item, merchant: @merchant)
-    @item2 = create(:item, merchant: @merchant)
+    @item = create(:item, merchant: @merchant, name: "XXX")
+    @item2 = create(:item, merchant: @merchant, name: "YYY")
     @user1 = create(:user, role: 0)
     @customer1 = create(:customer, user: @user1)
     @merchant1 = create(:merchant, user: @user1, status: 1)
+
+    @invoice_1 = create(:invoice, customer: @customer, merchant: @merchant)
+
+    @invoice_item_1 = create(:invoice_item, status: 0, item: @item, invoice: @invoice_1, quantity: 1, unit_price: 1)
 
     visit "/"
 
@@ -42,10 +46,6 @@ RSpec.describe "When a user tries to checkout" do
 
     click_on "Cart (1)"
 
-    within(".level-right") do
-      click_on 'Check Out'
-    end
-
-    expect(page).to have_content(@merchant.invoice_items.first.item.name)
+    expect(page).to have_content(@item2.name)
   end
 end
