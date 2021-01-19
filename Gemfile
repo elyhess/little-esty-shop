@@ -45,6 +45,8 @@ gem "factory_bot_rails", require: true
 gem "faker", require: true
 gem "devise"
 gem 'braintree', '~> 2.56'
+gem 'kaminari'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

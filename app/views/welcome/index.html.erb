@@ -12,6 +12,12 @@
 </nav>
 <hr>
 
+<div class="level-left">
+  <div class="level-item">
+    <h4><%= page_entries_info @items %></h4>
+  </div>
+</div>
+
 <section class="section">
   <section class="section is-size-5 box" id="invoices">
     <% @items.each do |item| %>
@@ -24,3 +30,12 @@
     <% end %>
   </section>
 </section>
+
+<div class="level-item">
+  <div class="level-left">
+    <%= link_to_prev_page @items, 'Previous Page', class: "pagination-previous button is-large is-primary" %>
+  </div>
+  <div class="level-right">
+    <%= link_to_next_page @items, 'Next Page', class: "pagination-next button is-large is-primary" %>
+  </div>
+</div>
