@@ -1,9 +1,51 @@
-<% @invoices.each do |invoice| %>
-  <%= invoice.id %>
-<% end %>
+<nav class="level">
+  <div class="level-left">
+    <div class="level-item">
+      <h2>Payment</h2>
+    </div>
+  </div>
+</nav>
+<hr>
 
-<% @items.each do |item| %>
-  <%= item.name %>
-  <%= item.quantity %>
-  <%= item.unit_price %>
-<% end %>
+<section class="section">
+  <table class="table is-striped is-hoverable">
+    <thead>
+    <tr>
+      <th><%= t('.item_name') %></th>
+      <th><%= t('.quantity') %></th>
+      <th>Price per unit (w/ discount if applicable)</th>
+      <th>Discount Applied</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody class="has-text-centered">
+    <tr>
+      <% @invoice_items.each do |invoice_item| %>
+        <div id="item-<%= invoice_item.id %>">
+          <td><%= invoice_item.item.name %></td>
+          <td><%= invoice_item.quantity %></td>
+          <td><%= number_to_currency(invoice_item.unit_price, precision: 0) %></td>
+          <td><%= invoice_item.discount_name %> - <%= number_to_percentage(invoice_item.discount_percentage, precision: 0) %></td>
+          <td><%= number_to_currency(@order.invoice_item_total(invoice_item), precision: 0) %></td>
+        </div>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <section class="section is-size-5 box">
+    <ul>
+      <h2>You save: <%= number_to_currency(@order.total_saved, precision: 0) %></h2>
+      <h1>Total: <%= number_to_currency(@order.total, precision: 0) %></h1>
+    </ul>
+  </section>
+</section>
+
+
+<div class="buttons">
+  <p class="control">
+    <%= button_to "Pay", order_path(@order), method: :patch,  class: "button is-medium" %>
+  </p>
+</div>

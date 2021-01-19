@@ -17,7 +17,6 @@ class Cart
     @contents.delete("#{id}")
   end
 
-
   def count_of(id)
     @contents[id.to_s].to_i
   end

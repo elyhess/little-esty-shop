@@ -3,8 +3,18 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(cart.contents, current_user.customer)
-    @order.invoices
-    @order.invoice_items
-    redirect_to customer_path(current_user.customer.id)
+    redirect_to order_path(@order)
+  end
+
+  def show
+    @order = Order.new(cart.contents, current_user.customer)
+    @invoice_items = @order.invoice_items
+  end
+
+  def update
+    @order = Order.new(cart.contents, current_user.customer)
+    @order.invoices.first.update(status: 2)
+    session.delete(:cart)
+    redirect_to root_path
   end
 end

@@ -8,6 +8,7 @@ RSpec.describe Merchant, type: :model do
   describe 'relationships' do
     it { should have_many :items }
     it { should have_many :invoices }
+    it { should have_many :bulk_discounts }
     it { should belong_to :user}
     it { should have_many(:invoice_items).through(:invoices) }
     it { should have_many(:transactions).through(:invoices) }
@@ -59,13 +60,13 @@ RSpec.describe Merchant, type: :model do
       transaction6 = create(:transaction, invoice: invoice6, result: 1)
       transaction7 = create(:transaction, invoice: invoice7, result: 0)
 
-      item1 = create(:item, merchant: @merchant1)
-      item2 = create(:item, merchant: @merchant2)
-      item3 = create(:item, merchant: @merchant3)
-      item4 = create(:item, merchant: merchant4)
-      item5 = create(:item, merchant: merchant5)
-      item6 = create(:item, merchant: merchant6)
-      item7 = create(:item, merchant: merchant7)
+      item1 = create(:item, merchant: @merchant1, unit_price: 300)
+      item2 = create(:item, merchant: @merchant2, unit_price: 15)
+      item3 = create(:item, merchant: @merchant3, unit_price: 40)
+      item4 = create(:item, merchant: merchant4, unit_price: 50)
+      item5 = create(:item, merchant: merchant5, unit_price: 10)
+      item6 = create(:item, merchant: merchant6, unit_price: 30)
+      item7 = create(:item, merchant: merchant7, unit_price: 110)
 
       invoice_item1 = create(:invoice_item, item: item1, invoice: invoice1, quantity: 1, unit_price: 300) #300 rev
       invoice_item2 = create(:invoice_item, item: item2, invoice: invoice2, quantity: 2, unit_price: 15) #30 rev
@@ -188,7 +189,11 @@ RSpec.describe Merchant, type: :model do
         create(:transaction, result: 1, invoice: @invoice_33)
         create(:transaction, result: 0, invoice: @invoice_43)
 
-        create_list(:item, 6, merchant: @merchant_2)
+        create(:item, unit_price: 3, merchant: @merchant_2)
+        create(:item, unit_price: 4, merchant: @merchant_2)
+        create(:item, unit_price: 6, merchant: @merchant_2)
+        create(:item, unit_price: 2, merchant: @merchant_2)
+        create(:item, unit_price: 1, merchant: @merchant_2)
 
         create(:invoice_item, item: @merchant_2.items.fourth, invoice: @invoice_33, quantity: 10, unit_price: 2)#60
         1.times do

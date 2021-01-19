@@ -7,12 +7,16 @@ class Order
     invoice_items
   end
 
-  def count_of(id)
-    @contents[id.to_s].to_i
-  end
-
   def item_list
     Item.where(id: @contents.keys)
+  end
+
+  def order_items
+    item_quantities = {}
+    @contents.each do |item_id, quantity|
+      item_quantities[Item.find(item_id.to_i)] = quantity
+    end
+    item_quantities
   end
 
   def invoices
@@ -23,9 +27,31 @@ class Order
   end
 
   def invoice_items
-    item_list.map do |item|
+    order_items.map do |item, quantity|
       invoice = Invoice.find_by(customer: @customer, merchant: item.merchant)
-      InvoiceItem.create(quantity: count_of(item.id), unit_price: item.unit_price, status: 0, item: item, invoice: invoice)
+      InvoiceItem.create(quantity: quantity,
+                         status: 0,
+                         item: item,
+                         invoice: invoice)
     end
   end
+
+  def total_saved
+    invoice_items.sum do |invoice_item|
+      discount_rate = invoice_item.discount_percentage.to_f
+      original_price = invoice_item.item.unit_price
+      ((original_price * discount_rate) * invoice_item.quantity) / 100
+    end
+  end
+
+  def total
+    invoice_items.sum do |invoice_item|
+      invoice_item_total(invoice_item)
+    end
+  end
+
+  def invoice_item_total(invoice_item)
+    invoice_item.unit_price * invoice_item.quantity
+  end
+
 end

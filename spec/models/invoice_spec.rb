@@ -23,19 +23,20 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice_1.date).to eq("Wednesday, Jan 25, 2012")
     end
 
-    it '#total_revenue' do
-      @user = create(:user, role: 1)
-      @merchant = create(:merchant, user: @user)
-      @user1 = create(:user, role: 1)
-      @customer_1 = create(:customer, user: @user1)
-      @item = create(:item, merchant: @merchant)
-      @invoice_1 = create(:invoice, customer: @customer_1, merchant: @merchant, status: 0, created_at: "2012-01-25 09:54:09")
-      2.times do
-        create(:invoice_item, item: @item, unit_price: 25, invoice: @invoice_1, status: 1)
+    describe "#total_revenue" do
+      it '#calculates revenue' do
+        @user = create(:user, role: 1)
+        @merchant = create(:merchant, user: @user)
+        @user1 = create(:user, role: 1)
+        @customer_1 = create(:customer, user: @user1)
+        @item = create(:item, merchant: @merchant, unit_price: 25)
+        @invoice_1 = create(:invoice, customer: @customer_1, merchant: @merchant, status: 0, created_at: "2012-01-25 09:54:09")
+        2.times do
+          create(:invoice_item, item: @item, unit_price: 25, quantity: 1, invoice: @invoice_1, status: 1)
+        end
+
+        expect(@invoice_1.total_revenue).to eq(50)
       end
-
-
-      expect(@invoice_1.total_revenue).to eq(50)
     end
 
     it '#customer_name' do

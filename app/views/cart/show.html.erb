@@ -6,7 +6,7 @@
   </div>
 
   <div class="level-right">
-    <% if user_signed_in? && current_user.customer != nil %>
+    <% if user_signed_in? && !current_user.admin? %>
       <%= link_to t('.checkout'), orders_path, method: :post, class: 'button is-medium is-success' %>
     <% else %>
       <%= link_to t('.checkout'), new_user_session_path, class: 'button is-medium is-success' %>
@@ -19,10 +19,10 @@
   <table class="table is-striped is-hoverable">
     <thead>
       <tr>
-        <th><%= t('.checkout') %></th>
         <th><%= t('.item_name') %></th>
         <th><%= t('.quantity') %></th>
-        <th><%= t('.update') %></th>
+        <th>Price per unit</th>
+        <th>Update</th>
       </tr>
     </thead>
     <tbody class="has-text-centered">

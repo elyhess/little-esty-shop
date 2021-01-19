@@ -1,4 +1,4 @@
-<%= render 'merchant/dashboard/merchant_nav' %>
+<%#= render 'merchant/dashboard/merchant_nav' %>
 
 <h3 class="has-text-centered"><%= @item.name %></h3>
 
@@ -7,4 +7,12 @@
   <p class="is-size-4"><%= t('.current_price') %>: <%= number_to_currency(@item.unit_price, precision: 0) %></p>
 </section>
 
-<%= link_to t('.edit_item'), edit_merchant_item_path(@item.merchant_id, @item.id), class: 'button block is-large is-fullwidth is-primary' %>
+<% if current_user.admin? || !correct_merchant? %>
+  <%= link_to t('.edit_item'), edit_merchant_item_path(@item.merchant_id, @item.id), class: 'button block is-large is-fullwidth is-primary' %>
+<% end %>
+
+<div class="buttons">
+  <p class="control">
+    <%= link_to "Back", :back,  class: "button is-medium" %>
+  </p>
+</div>

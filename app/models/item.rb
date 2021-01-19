@@ -10,6 +10,13 @@ class Item < ApplicationRecord
 
   enum status: [ :disabled, :enabled ]
 
+  def best_discount(quantity)
+    merchant.bulk_discounts
+            .where("bulk_discounts.quantity_threshold <= ?", quantity)
+            .order(percentage: :desc)
+            .limit(1)
+  end
+
   def best_day
     invoices.select('invoices.created_at AS created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
     .group('invoices.created_at')
