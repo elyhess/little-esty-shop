@@ -61,6 +61,7 @@ group :development, :test do
   gem "awesome_print", :require => "ap"
   gem "hirb"
   gem "webmock"
+  gem "fake_braintree"
 end
 
 group :development do
