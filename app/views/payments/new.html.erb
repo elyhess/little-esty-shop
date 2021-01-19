@@ -1,0 +1,23 @@
+<h2>Pay Here:<h2>
+
+<%= form_tag payments_path do %>
+  <div id="payment-form"></div>
+  <%= submit_tag("Pay #{number_to_currency(@order.total)}", :class=>"button", :name=>"submit") %>
+<% end %>
+
+<script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+<script>
+var clientToken = "<%= Braintree::ClientToken.generate %>";
+
+braintree.setup(clientToken, "dropin", {
+  container: "payment-form",
+  paypal: {
+      singleUse: true,
+      currency: 'USD',
+      locale: 'en_us'
+  },
+  dataCollector: {
+      paypal: true
+  }
+});
+</script>

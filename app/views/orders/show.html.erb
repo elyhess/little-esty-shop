@@ -1,7 +1,7 @@
 <nav class="level">
   <div class="level-left">
     <div class="level-item">
-      <h2>Payment</h2>
+      <h2>Finalize Order</h2>
     </div>
   </div>
 </nav>
@@ -46,6 +46,6 @@
 
 <div class="buttons">
   <p class="control">
-    <%= button_to "Pay", order_path(@order), method: :patch,  class: "button is-medium" %>
+    <%= link_to "Pay", new_payment_path, class: "button is-medium is-success"%>
   </p>
 </div>

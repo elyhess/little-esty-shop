@@ -64,6 +64,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.5.1)
       msgpack (~> 1.0)
+    braintree (2.104.1)
+      builder (>= 2.0.0)
     builder (3.2.4)
     bulma-rails (0.9.1)
       sassc (~> 2.0)
@@ -283,6 +285,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   bootsnap (>= 1.1.0)
+  braintree (~> 2.56)
   bulma-rails (~> 0.9.1)
   capybara!
   coffee-rails (~> 4.2)

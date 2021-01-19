@@ -44,6 +44,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "factory_bot_rails", require: true
 gem "faker", require: true
 gem "devise"
+gem 'braintree', '~> 2.56'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
