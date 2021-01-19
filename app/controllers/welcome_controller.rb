@@ -11,6 +11,6 @@ class WelcomeController < ApplicationController
   private
 
   def set_items
-    @items = Item.with_enabled_merchants
+    @items = Item.with_enabled_merchants.page(params[:page])
   end
 end
