@@ -3,10 +3,12 @@ class PaymentsController < ApplicationController
 
 	def new
 		@order = Order.new(cart.contents, current_user.customer)
+		@all_invoice_items = Order.all_invoice_items
 	end
 
 	def create
 		@order = Order.new(cart.contents, current_user.customer)
+		@all_invoice_items = Order.all_invoice_items
 		@result = Braintree::Transaction.sale(amount: @order.total,
 		                                      payment_method_nonce: params[:payment_method_nonce])
 		if @result.success?

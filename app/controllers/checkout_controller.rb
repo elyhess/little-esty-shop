@@ -9,6 +9,7 @@ class CheckoutController < ApplicationController
 
   def show
     @order = Order.new(cart.contents, current_user.customer)
+    @all_invoice_items = Order.all_invoice_items
   end
 
 end

@@ -1,11 +1,15 @@
 class Order
   attr_reader :all_invoice_items
+  @@all_invoice_items = []
 
   def initialize(data, customer)
     @customer = customer
     @contents = data
     invoices
-    @all_invoice_items = []
+  end
+
+  def self.all_invoice_items
+    @@all_invoice_items
   end
 
   def item_list
@@ -31,20 +35,21 @@ class Order
     order_items.map do |item, quantity|
       invoice = Invoice.find_by(customer: @customer, merchant: item.merchant)
       invitem = InvoiceItem.create(quantity: quantity, status: 0, item: item, invoice: invoice)
-      @all_invoice_items << invitem
+      @@all_invoice_items << invitem
     end
   end
 
   def total_saved
-    @all_invoice_items.sum do |invoice_item|
+    @@all_invoice_items.sum do |invoice_item|
       discount_rate = invoice_item.discount_percentage.to_f
       original_price = invoice_item.item.unit_price
       ((original_price * discount_rate) * invoice_item.quantity) / 100
     end
+
   end
 
   def total
-    @all_invoice_items.sum do |invoice_item|
+    @@all_invoice_items.sum do |invoice_item|
       invoice_item_total(invoice_item)
     end
   end
