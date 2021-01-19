@@ -32,5 +32,7 @@ Rails.application.routes.draw do
 
 
     resources :admin, controller: 'admin/dashboard', only: [:index]
+
+    resources :payments, only: [:new, :create]
   #end
 end

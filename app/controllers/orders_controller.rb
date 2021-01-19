@@ -10,11 +10,4 @@ class OrdersController < ApplicationController
     @order = Order.new(cart.contents, current_user.customer)
     @invoice_items = @order.invoice_items
   end
-
-  def update
-    @order = Order.new(cart.contents, current_user.customer)
-    @order.invoices.first.update(status: 2)
-    session.delete(:cart)
-    redirect_to root_path
-  end
 end
