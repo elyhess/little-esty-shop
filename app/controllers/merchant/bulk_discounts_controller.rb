@@ -25,17 +25,26 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   end
 
   def update
-    @bulk_discount.update(bulk_discount_params)
-    flash.notice = "#{@bulk_discount.name} was updated successfully!"
-    redirect_to merchant_bulk_discounts_path(@merchant, @bulk_discount)
+    if @bulk_discount.has_pending_invoice_items?
+      flash[:error] = "#{@bulk_discount.name} has pending invoices, try again later."
+      redirect_to merchant_bulk_discounts_path(@merchant, @bulk_discount)
+    elsif @bulk_discount.update(bulk_discount_params)
+      flash.notice = "#{@bulk_discount.name} was updated successfully!"
+      redirect_to merchant_bulk_discounts_path(@merchant, @bulk_discount)
+    end
   end
 
   def edit
   end
 
   def destroy
-    @bulk_discount.destroy
-    redirect_to merchant_bulk_discounts_path(@merchant)
+    if @bulk_discount.has_pending_invoice_items?
+      flash[:error] = "#{@bulk_discount.name} has pending invoices, try again later."
+      redirect_to merchant_bulk_discounts_path(@merchant)
+    elsif @bulk_discount.destroy
+      flash.notice = "#{@bulk_discount.name} was deleted."
+      redirect_to merchant_bulk_discounts_path(@merchant)
+    end
   end
 
   private

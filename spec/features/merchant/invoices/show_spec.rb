@@ -103,7 +103,7 @@ RSpec.describe 'merchants invoices index page', type: :feature do
       expect(page).to have_content("Total Revenue: $#{@invoice_9.total_revenue.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}")
     end
 
-    it 'can show total revenue for that invoice with discounts' do
+    it 'can show total revenue for that invoice with bulk_discounts' do
       visit merchant_invoice_path(@merchant.id, @invoice_9.id)
       expect(page).to have_content("Total Revenue: $#{@invoice_9.total_revenue.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}")
     end
@@ -118,7 +118,7 @@ RSpec.describe 'merchants invoices index page', type: :feature do
       end
     end
 
-      it 'I see a link to the discounts applied to each invoice item' do
+      it 'I see a link to the bulk_discounts applied to each invoice item' do
         visit merchant_invoice_path(@merchant.id, @invoice_9.id)
 
         first(:link, "Big discount").click

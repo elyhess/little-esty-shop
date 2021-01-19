@@ -12,7 +12,7 @@ RSpec.describe 'As a merchant' do
 			login_as(@user, scope: :user)
 		end
 
-		it 'I can update the bulk discounts information' do
+		it 'I can update the bulk bulk_discounts information' do
 			visit edit_merchant_bulk_discount_path(@merchant, @discount)
 
 			fill_in "bulk_discount[name]", with: "Discount Name"

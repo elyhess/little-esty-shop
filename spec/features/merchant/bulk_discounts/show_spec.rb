@@ -2,7 +2,7 @@ require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
 RSpec.describe 'As a merchant' do
-	describe 'when i visit the merchant bulk discounts show page' do
+	describe 'when i visit the merchant bulk bulk_discounts show page' do
 		before :each do
 			@user = create(:user, role: 0)
 			@merchant = create(:merchant, user: @user)
@@ -16,7 +16,7 @@ RSpec.describe 'As a merchant' do
 			login_as(@user, scope: :user)
 		end
 
-		it ' i see all the bulk discounts for that merchant' do
+		it ' i see all the bulk bulk_discounts for that merchant' do
 			visit merchant_bulk_discount_path(@merchant, @discount1)
 
 			expect(page).to have_content(@discount1.name)

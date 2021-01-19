@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'As a merchant' do
-	describe 'when i visit the merchant bulk discounts new page' do
+	describe 'when i visit the merchant bulk bulk_discounts new page' do
 		before :each do
 			@user = create(:user, role: 0)
 			@merchant = create(:merchant, user: @user)
