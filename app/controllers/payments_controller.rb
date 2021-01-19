@@ -8,8 +8,8 @@ class PaymentsController < ApplicationController
 
 	def create
 		@order = Order.new(cart.contents, current_user.customer)
-		@all_invoice_items = Order.all_invoice_items
-		@result = Braintree::Transaction.sale(amount: @order.total,
+		# @all_invoice_items = Order.all_invoice_items
+		@result = Braintree::Transaction.sale(amount: @order.total.to_s,
 		                                      payment_method_nonce: params[:payment_method_nonce])
 		if @result.success?
 			session.delete(:cart)

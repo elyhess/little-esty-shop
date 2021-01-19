@@ -57,6 +57,68 @@ RSpec.describe "When a user is on the checkout page" do
 			expect(page).to have_content("Total: $41")
 		end
 
-		expect(page).to have_link("Pay")
+		click_link "Pay"
+
+		expect(current_path).to eq(new_payment_path)
+
+		click_button "Pay $41.00"
+
+		expect(current_path).to eq(root_path)
+		expect(page).to have_content("Congratulations! Your transaction was successful.")
+	end
+
+	it "If transaction is not approved" do
+		@user = create(:user, role: 1)
+		@merchant = create(:merchant, user: @user, status: 1)
+		@customer = create(:customer, user: @user)
+
+		@user1 = create(:user, role: 0)
+		@merchant1 = create(:merchant, user: @user1, status: 1)
+		@customer = create(:customer, user: @user1)
+
+		@discount_a = @merchant.bulk_discounts.create!(name: "Small discount", quantity_threshold: 1, percentage: 10)
+		@discount_b = @merchant.bulk_discounts.create!(name: "Big discount", quantity_threshold: 2, percentage: 20)
+
+		@item_a = create(:item, merchant: @merchant, unit_price: 10)
+		@item_b = create(:item, merchant: @merchant, unit_price: 20)
+
+		@invoice_1 = create(:invoice, customer: @customer, merchant: @merchant)
+
+		@invoice_item_1 = create(:invoice_item, status: 1, item: @item_a, invoice: @invoice_1, quantity: 1, unit_price: 10, discount_id: @discount_a.id)
+		@invoice_item_2 = create(:invoice_item, status: 0, item: @item_b, invoice: @invoice_1, quantity: 2, unit_price: 20,  discount_id: @discount_a.id)
+
+		login_as(@user1, scope: :user)
+
+		visit root_path
+
+		within("#item-#{@item_a.id}") do
+			click_button "Add To Cart"
+		end
+
+		within("#item-#{@item_b.id}") do
+			click_button "Add To Cart"
+		end
+
+		within("#item-#{@item_b.id}") do
+			click_button "Add To Cart"
+		end
+
+		click_on "Cart (3)"
+
+		within(".level-right") do
+			click_on 'Check Out'
+		end
+
+		click_link "Pay"
+
+		expect(current_path).to eq(new_payment_path)
+
+		FakeBraintree.clear!
+		FakeBraintree.decline_all_cards!
+		click_button "Pay $82.00"
+		FakeBraintree.clear!
+
+		expect(current_path).to eq(payments_path)
+		expect(page).to have_content("Something went wrong while processing your transaction. Please try again!")
 	end
 end
