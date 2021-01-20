@@ -38,12 +38,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[Little Esty Shop](https://immense-ocean-82455.herokuapp.com/) is a module 2 group project for Turing School of Software & Design's Back-End Engineering (BEE) program. Little Esty Shop is a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices
-
+[Little Esty Shop](https://immense-ocean-82455.herokuapp.com/)  is a module 2 two-part project for the Turing School of Software & Design. The application resembles a fictitious e-commerce platform where merchants and administrators can manage inventory and fulfill customer invoices, and customers can make purchases. The project is broken into two parts, the first being a 4 person group project with the collaborators mentioned below, and the second part being a solo project
 
 User stories tracked using [Github projects](https://github.com/elyhess/little-esty-shop/projects/13).
 
-### Skills Developed by Project
+### Part 1: 
+
+#### Skills Developed in part 1
 * Designed schema with custom rake task for database seeding
 * Used advanced ActiveRecord to perform complex database queries
 * Utilized namespacing for efficient and organized routing  
@@ -51,18 +52,28 @@ User stories tracked using [Github projects](https://github.com/elyhess/little-e
 * Consumed github API and utilized POROS as a way to apply OOP principals  
 * Deployed application on [Heroku](https://immense-ocean-82455.herokuapp.com/)
 
-### Extensions Complete
-* Session & account models with Devise Gem
-* Shopping cart for customer roles
-* Implement a CSS framework
+#### Extensions Complete
+* Utilized sessions & account models with Devise Gem
+* Added a shopping cart session for customers
+* Implemented a CSS framework
+
+### Part 2:
+
+#### Skills Developed in part 2
+* Used advanced ActiveRecord to perform complex database queries
+* Utilized namespacing for efficient and organized routing
+* Practiced MVC concepts, effectively staying within rails conventions
+* Implemented checkout and payment functionality using POROs and Braintree's paypal API implementation
+* Use webmock to test functionality of API calls 
+* Deployed application on [Heroku](https://immense-ocean-82455.herokuapp.com/)
+
+#### Extensions Complete
+* Used ActiveRecord to implement functionality that limits merchants from deleting/editing discounts belonging to invoices that are pending
+* Used ActiveRecord to store pertinent discount information on invoice records for referencing throughout application
 
 <!-- PROJECT BOARD -->
 ## Project Board
 Check out the [Project board](https://github.com/elyhess/little-esty-shop/projects/13) for a complete list of features / user stories used to develop this application.
-
-1. [Database Setup](./doc/db_setup.md)
-1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
 
 <!-- DATABBASE SCHEMA -->
 ## Database Schema
@@ -75,6 +86,8 @@ Check out the [Project board](https://github.com/elyhess/little-esty-shop/projec
 * [Ruby on Rails](https://rubyonrails.org/)
 * [Postgresql](https://www.postgresql.org/)
 * [Devise](https://github.com/heartcombo/devise)
+* [GitHub API](https://docs.github.com/en/rest)
+* [Braintree](https://developers.braintreepayments.com/guides/drop-in/overview/javascript/v2)  
 * [Bulma](https://bulma.io/)
 
 <!-- SETUP INSTRUCTIONS -->
@@ -119,7 +132,7 @@ OR
    password: password
    
    User:
-   email: alberto@zulauf.org
+   email: merchant1@example.org
    password: strongpassword
    ```
 
@@ -138,4 +151,5 @@ OR
 ## Acknowledgements
 
 * [README template](https://github.com/othneildrew/Best-README-Template)
-* [Turing School of Software & Design Project Repo](https://github.com/turingschool-examples/little-esty-shop)
+* [Mod_2 Project: Part 1 (group)](https://github.com/turingschool-examples/little-esty-shop)
+* [Mod_2 Project: Part 2 (solo)](https://backend.turing.io/module2/projects/bulk_discounts)
