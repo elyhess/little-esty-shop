@@ -42,7 +42,7 @@
 
 User stories tracked using [Github projects](https://github.com/elyhess/little-esty-shop/projects/13).
 
-### Part 1: 
+### [Part 1](https://github.com/turingschool-examples/little-esty-shop):
 
 #### Skills Developed in part 1
 * Designed schema with custom rake task for database seeding
@@ -57,7 +57,7 @@ User stories tracked using [Github projects](https://github.com/elyhess/little-e
 * Added a shopping cart session for customers
 * Implemented a CSS framework
 
-### Part 2:
+### [Part 2](https://backend.turing.io/module2/projects/bulk_discounts):
 
 #### Skills Developed in part 2
 * Used advanced ActiveRecord to perform complex database queries
