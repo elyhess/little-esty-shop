@@ -1,6 +1,3 @@
-
-# Braintree::Configuration.environment = Rails.env.development? ? ENV['BRAINTREE_ENVIRONMENT'] : :development
-
 if Rails.env.development?
 	Braintree::Configuration.environment = :sandbox
 elsif Rails.env.production?
